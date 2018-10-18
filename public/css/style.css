@@ -1,0 +1,44 @@
+html, main {
+	margin: 0;
+	background-color: white;
+}
+
+nav {
+	background-color: gray;
+}
+
+footer {
+	background-color: black;
+	color:white;
+	padding: 15px;
+}
+
+.push {
+	margin-top: 80px;
+}
+
+.card:hover {
+	background-color: #d4e1f4;
+    -webkit-transition: background-color 700ms linear;
+    -ms-transition: background-color 700ms linear;
+    transition: background-color 700ms linear;
+}
+
+#card-price:hover {
+	background-color: white;
+}
+
+#home{
+  	background-image: url('https://cdn.civitatis.com/italia/bari/bari.jpg');
+  	background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+  	margin-top: 50px;
+  	text-align: center;
+  	color: white;
+	height: 100%;
+}
+
+
+
