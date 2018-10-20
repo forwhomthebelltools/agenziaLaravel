@@ -19,4 +19,6 @@ Route::get('/formRistorante', 'MioController@formRistorante');
 
 Route::get('/ristorante/{nome}', 'MioController@getRistorante');
 
+Route::get('/thankyou', 'MioController@getThankYouPage')->name('thankyou');
+
 Route::post('/dati', 'MioController@dati');

@@ -30,6 +30,12 @@ class MioController extends Controller
 
 	}
 
+	function getThankYouPage() {
+
+		return view ('/thankyou');
+
+	}
+
 
 	function getRistoranti() {
 
@@ -46,17 +52,28 @@ class MioController extends Controller
 
 	}
 
-	function formRistorante() {
-
-		return view ('vaiaform');
-
-	}
-
 
 	function dati (Request $request) {
 
 		$input = $request->all();
-		dd($input);
+
+		$this->validate($request, [
+
+			'email' => 'required|email',
+			'name' => 'required|max:50',
+			'message' => 'required|max:255'
+
+		], [
+
+			'email.required' => 'We need an email address',
+			'name.required' => 'Please insert your name and surname',
+			'message.required' => 'Please insert your message'
+
+		]);
+
+		$name = $request['name'];
+
+		return redirect()->route('thankyou', ['name'=>$name]);
 
 	}
 
