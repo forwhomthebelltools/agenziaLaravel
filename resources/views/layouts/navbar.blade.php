@@ -10,17 +10,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
                     </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Proposte</a>
-            </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Prenotazioni</a>
+                        <a class="nav-link" href="/formproduct">Inserisci prodotto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Chi siamo</a>
+                        <a class="nav-link" href="/showproducts">Mostra prodotti</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
                     </li>
                 </ul>
             </div>

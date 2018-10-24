@@ -2,7 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
+
+use View;
+
+use DB;
+
+use App;
+
+//https://stackoverflow.com/questions/28573860/laravel-requestall-should-not-be-called-statically
+
+use App\Product;
 
 class MioController extends Controller
 
@@ -55,7 +65,7 @@ class MioController extends Controller
 
 	function dati (Request $request) {
 
-		$input = $request->all();
+		//$input = $request->all();
 
 		$this->validate($request, [
 
@@ -71,11 +81,49 @@ class MioController extends Controller
 
 		]);
 
-		$name = $request['name'];
+		$name = $request->input('name');
 
 		return redirect()->route('thankyou', ['name'=>$name]);
 
 	}
 
+	public function showProducts() {
+		$products = Product::all();
+    	return view('showproducts')->with('products', $products);
+ 
+    }
+
+    public function deleteProduct($id){
+    	DB::table('products')->where('id', $id)->delete();
+    	return redirect ('showproducts');
+
+    }
+
+	public function index() {
+    	return view ('formproduct');
+    }
+
+    public function store(Request $req){
+    	Product::create(Request::all());
+    	return "Data saved in database. <a href= '/showproducts'>Go to products</a>";
+
+    }
+
+    public function showProduct ($id) {
+    	$categories = ["abbigliamento" => "Abbigliamento", "elettrodomestici" => "Elettrodomestici", 
+				"giocattoli" => "Giocattoli", "armi" => "Armi dal Deep web"];
+    	$product = App\Product::where('id', $id)->get();
+		return view ('show')->with('product',$product)->with('categories',$categories);    
+	}
+
+	public function editProduct(Request $req, $id) {
+		$product = App\Product::find($id);
+		$product->name = $req->input('name');;
+		$product->price = "aaaaa";
+		$product->description = "aaaaa";
+		$product->category = "aaaaa";
+		$product->save();
+		return "Data updated in database. <a href= '/showproducts'>Go to products</a>";
+	}
 }
 

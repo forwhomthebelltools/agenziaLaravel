@@ -22,3 +22,19 @@ Route::get('/ristorante/{nome}', 'MioController@getRistorante');
 Route::get('/thankyou', 'MioController@getThankYouPage')->name('thankyou');
 
 Route::post('/dati', 'MioController@dati');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/formproduct', 'MioController@index');
+
+Route::post('/store', 'MioController@store');
+
+Route::get('/showproducts', 'MioController@showProducts');
+
+Route::delete('/delete/{id}', 'MioController@deleteProduct');
+
+Route::get('/show/{id}', 'MioController@showProduct');
+
+Route::get('/update/{id}', 'MioController@editProduct');

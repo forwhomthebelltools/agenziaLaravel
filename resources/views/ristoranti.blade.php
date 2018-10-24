@@ -22,7 +22,7 @@
             @csrf
               <div class="form-group row">
                 <div class="col-sm-10 col-lg-6 offset-lg-3">
-                  <input type="email" name="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Your email">
+                  <input type="email" name="email" class="form-control" id="colFormLabelSm" placeholder="Your email">
                 </div>
               </div>
               @if ($errors->has('email'))
@@ -37,7 +37,7 @@
               </div>
               @if ($errors->has('name'))
 
-                <p style="color:red; font-size: 24px;">{{$errors->first('name')}}</p>
+                <div class="alert alert-danger col-sm-10 col-lg-6 offset-lg-3">{{$errors->first('name')}}</div>
 
               @endif
               <div class="form-group row">
