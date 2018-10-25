@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 use View;
 
 use DB;
@@ -96,7 +98,6 @@ class MioController extends Controller
     public function deleteProduct($id){
     	DB::table('products')->where('id', $id)->delete();
     	return redirect ('showproducts');
-
     }
 
 	public function index() {
@@ -104,9 +105,26 @@ class MioController extends Controller
     }
 
     public function store(Request $req){
-    	Product::create($req->all());
-    	return "Data saved in database. <a href= '/showproducts'>Go to products</a>";
+    	//Product::create($req->all());
+    	
+    	$name = $req->input('name');
+		$price = $req->input('price');
+		$description = $req->input('description');
+		$category = $req->input('category');
+		$img_url = $req->file('immagine')->store('public/userfiles');
+		$img_url = Storage::url($img_url);
 
+		$product = new Product();
+    	
+    	$product->name = $name;
+    	$product->description = $description;
+    	$product->price = $price;
+    	$product->category = $category;
+    	$product->img = $img_url;
+
+    	$product->save();
+
+    	return "Data saved in database. <a href= '/showproducts'>Go to products</a>";
     }
 
     public function showProduct ($id) {

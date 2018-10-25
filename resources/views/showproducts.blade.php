@@ -16,6 +16,7 @@
   		<div class="card-header text-center">
     		{{ $product->name }}
   		</div>
+      <img class="card-img-top" src="{{$product->img}}" alt="Card image cap">
   		<ul class="list-group list-group-flush">
     		<li class="list-group-item">Categoria: {{ $product->category }}</li>
     		<li class="list-group-item">Prezzo: {{ $product->price }}</li>

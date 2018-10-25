@@ -14,7 +14,7 @@
   			
 			<br>
 
-  			<hr class="my-4" style="border-width: 3px; width: 30%;border-color: #fff;" >
+  			<hr class="my-4" style="border-width: 3px; width: 30%; border-color: #fff;" >
   			<p>Contattaci, ti risponderemo subito!</p>
   			
 
