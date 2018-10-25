@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Request;
 
 use View;
 
@@ -104,24 +104,24 @@ class MioController extends Controller
     }
 
     public function store(Request $req){
-    	Product::create(Request::all());
+    	Product::create($req->all());
     	return "Data saved in database. <a href= '/showproducts'>Go to products</a>";
 
     }
 
     public function showProduct ($id) {
     	$categories = ["abbigliamento" => "Abbigliamento", "elettrodomestici" => "Elettrodomestici", 
-				"giocattoli" => "Giocattoli", "armi" => "Armi dal Deep web"];
+				"giocattoli" => "Giocattoli", "armi" => "Armi"];
     	$product = App\Product::where('id', $id)->get();
 		return view ('show')->with('product',$product)->with('categories',$categories);    
 	}
 
 	public function editProduct(Request $req, $id) {
 		$product = App\Product::find($id);
-		$product->name = $req->input('name');;
-		$product->price = "aaaaa";
-		$product->description = "aaaaa";
-		$product->category = "aaaaa";
+		$product->name = $req->input('name');
+		$product->price = $req->input('price');
+		$product->description = $req->input('description');
+		$product->category = $req->input('category');
 		$product->save();
 		return "Data updated in database. <a href= '/showproducts'>Go to products</a>";
 	}

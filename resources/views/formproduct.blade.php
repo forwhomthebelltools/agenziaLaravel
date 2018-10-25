@@ -28,7 +28,7 @@
         		<option value="abbigliamento" selected>Abbigliamento</option>
         		<option value="elettrodomestici">Elettrodomestici</option>
         		<option value="giocattoli">Giocattoli</option>
-        		<option value="armi">Armi dal Deep web</option>
+        		<option value="armi">Armi</option>
       		</select>
     	  </div>	  
 		  <div class="form-group row">

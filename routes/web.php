@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,4 +39,4 @@ Route::delete('/delete/{id}', 'MioController@deleteProduct');
 
 Route::get('/show/{id}', 'MioController@showProduct');
 
-Route::get('/update/{id}', 'MioController@editProduct');
+Route::post('/update/{id}', 'MioController@editProduct');

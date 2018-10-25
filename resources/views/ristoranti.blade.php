@@ -27,7 +27,7 @@
               </div>
               @if ($errors->has('email'))
 
-                <p style="color:red; font-size: 24px;">{{$errors->first('email')}}</p>
+                <div class="alert alert-danger col-sm-10 col-lg-6 offset-lg-3">{{$errors->first('email')}}</div>
 
               @endif
               <div class="form-group row">
@@ -47,7 +47,7 @@
               </div>
               @if ($errors->has('message'))
 
-                <p style="color:red; font-size: 24px;">{{$errors->first('message')}}</p>
+                <div class="alert alert-danger col-sm-10 col-lg-6 offset-lg-3">{{$errors->first('message')}}</div>
 
               @endif 
 
