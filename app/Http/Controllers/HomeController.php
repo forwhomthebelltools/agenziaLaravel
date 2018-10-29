@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -11,6 +13,8 @@ class HomeController extends Controller
      *
      * @return void
      */
+    //sono protetto: posso accederci solo
+    //se autenticato
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,6 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $currentUser = Auth::user();
+        //prendo tutti i prodotti inseriti dall'utente loggato
+        $userProducts = $currentUser->products()->get();
+        return view('home', ['userProducts' => $userProducts]);
     }
 }

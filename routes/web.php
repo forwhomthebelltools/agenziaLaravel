@@ -13,30 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-
-
-Route::get('/', 'MioController@getRistoranti');
-
-Route::get('/formRistorante', 'MioController@formRistorante');
-
-Route::get('/ristorante/{nome}', 'MioController@getRistorante');
-
-Route::get('/thankyou', 'MioController@getThankYouPage')->name('thankyou');
-
-Route::post('/dati', 'MioController@dati');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/formproduct', 'MioController@index');
+Route::get('/', 'PublicController@getRistoranti');
+Route::get('/formRistorante', 'PublicController@formRistorante');
+Route::get('/ristorante/{nome}', 'PublicController@getRistorante');
+Route::get('/thankyou', 'PublicController@getThankYouPage')->name('thankyou');
+Route::post('/dati', 'PublicController@dati');
+Route::get('/showproducts', 'PublicController@showProducts');
+Route::delete('/delete/{id}', 'PublicController@deleteProduct');
 
-Route::post('/store', 'MioController@store');
+Route::get('/formproduct', 'InsertController@index');
+Route::post('/store', 'InsertController@store');
 
-Route::get('/showproducts', 'MioController@showProducts');
-
-Route::delete('/delete/{id}', 'MioController@deleteProduct');
-
-Route::get('/show/{id}', 'MioController@showProduct');
-
-Route::post('/update/{id}', 'MioController@editProduct');
+Route::get('/show/{id}', 'ShowController@showProduct');
+Route::post('/update/{id}', 'ShowController@editProduct');

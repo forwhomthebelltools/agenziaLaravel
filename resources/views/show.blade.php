@@ -6,7 +6,7 @@
 
 @foreach ($product as $pro)
 
-
+<!-- $product è una collection, quindi mi serve il foreach -->
 <div class="row">
 	<div class="col-sm-10 col-lg-6 offset-lg-3">
 		<form method="POST" action="/update/{{$pro->id}}">
@@ -36,7 +36,7 @@
 	      		</select>
     	  </div>	  
 		  <div class="form-group row">
-		    <div class="col-sm-10">
+		    <div class="col-sm-10 text-center">
 		      <button type="submit" class="btn btn-primary">Update product</button>
 		    </div>
 		  </div>

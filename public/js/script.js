@@ -1,4 +1,4 @@
-$("#night-button").click(function(){
+$("#button-night").click(function(){
 	$("main").css("background-color", "black");
 	$("html").css("background-color", "black");
 	$("section div h1").css("color", "white");
@@ -10,7 +10,7 @@ $("#night-button").click(function(){
     $(this).css("color", "white").css("border-color", "white");
 });
 
-$("#day-button").click(function(){
+$("#button-day").click(function(){
 	$("main").css("background-color", "white");
 	$("html").css("background-color", "white");
 	$("section div h1").css("color", "black");
@@ -21,6 +21,11 @@ $("#day-button").click(function(){
     $("#night-button").css("color", "black").css("border-color", "black");
     $(this).css("color", "black").css("border-color", "black");
 });
+setTimeout(function(){
+  if ($('#success-msg').length > 0) {
+    $('#success-msg').remove();
+  }
+}, 3000)
 
 // $( "#toggle-button" ).toggle(function() {
 //     $("main").css("background-color", "black");

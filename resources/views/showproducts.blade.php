@@ -2,11 +2,20 @@
 
 @section('content')
 
-<div class="row">
+ @if (Session::has('message')) 
 
-<div class="col-12 text-center">
-    <h1>I nostri prodotti</h1>
-</div>
+  <div id="success-msg" class="alert alert-success" role="alert">
+    <strong>Well done!</strong> {{ Session::get("message") }}
+  </div>
+
+@endif
+
+<br>
+<h1 class="text-center">OUR PRODUCTS</h1>
+<hr class="my-4" style="border-width: 3px; width: 40%;" >
+<br>
+
+<div class="row">
 
 @foreach($products as $product)
 
@@ -18,23 +27,24 @@
   		</div>
       <img class="card-img-top" src="{{$product->img}}" alt="Card image cap">
   		<ul class="list-group list-group-flush">
+        <!--first prende ilprimo che trovi, va bene perchè è sempre uno l'utente 
+        <li class="list-group-item">Autore: {{ $product->user()->first()->name }}</li> -->
+        <li class="list-group-item">Autore: {{ $product->user->name }}</li>
+        <li class="list-group-item"><a href="mailto: {{ $product->user->email }}">Contatta il venditore</a></li>
     		<li class="list-group-item">Categoria: {{ $product->category }}</li>
     		<li class="list-group-item">Prezzo: {{ $product->price }}</li>
-    		<li class="list-group-item">{{ $product->description }}</li>
+        <p class="card-text text-center">
+          <small class="text-muted">
+          Last updated @php
+                       $now=date("Y-m-d H:i:s");
+                       $updating = $product->updated_at;
+                       $b=strtotime($updating); 
+                       echo App\Http\Controllers\PublicController::updatedTime($now,$updating) . " hours ago";
+                       @endphp
+          </small>
+        </p>
   		</ul>
-  		<div class="card-body">
-        <a href="/show/{{$product->id}}" class="card-link">Show/modify product</a>
-  		</div>
-      <form method="post" action="/delete/{{$product->id}}">
-      @csrf
-      @method('DELETE')
-      <div class="col-md-6 offset-md-3 text-center"> 
-        <button type="submit" value="delete product" class="btn btn-primary" onclick="return confirm('Are you sure?')">Delete product</button> 
-      </div>
-        
-      </form>
 	</div> 
-
 </div>   
 
 @endforeach
