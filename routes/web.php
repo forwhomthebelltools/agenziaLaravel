@@ -25,8 +25,11 @@ Route::post('/dati', 'PublicController@dati');
 Route::get('/showproducts', 'PublicController@showProducts');
 Route::delete('/delete/{id}', 'PublicController@deleteProduct');
 
+
 Route::get('/formproduct', 'InsertController@index');
 Route::post('/store', 'InsertController@store');
+Route::post('/insertcomment/{id}', 'InsertController@insertComment');
+
 
 Route::get('/show/{id}', 'ShowController@showProduct');
 Route::post('/update/{id}', 'ShowController@editProduct');

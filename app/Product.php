@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Comment;
+
 class Product extends Model
 {
-    protected $fillable = ['name', 'price', 'description', 'category', 'immagine'];
+    protected $fillable = ['name', 'price', 'description', 'category', 'img', 'user_id'];
 
     //metodo che resituisce lo user che ha creato un prodotto
 	public function user()
@@ -14,6 +16,10 @@ class Product extends Model
         return $this->belongsTo('App\User');
         //this=questa news, che appartiene all'utente
         //poichè ho creato la foreign key, capisce come collegare le due tabelle
+    }
+
+    public function comments() {
+        return $this->hasMany('App\Comment');
     }
 
 }

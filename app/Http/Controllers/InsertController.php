@@ -8,6 +8,8 @@ use App\Http\Requests\ProductRequest;
 
 use App\Product;
 
+use App\Comment;
+
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +53,33 @@ class InsertController extends Controller
     	$product->save();
 
     	return "Data saved in database. <a href= '/showproducts'>Go to products</a>";
+    }
+
+    public function insertComment(Request $req, $id) {
+
+        $currentUser = Auth::user();
+        
+        if ($currentUser) {
+        
+            $commentInserted = $req->input('comment');
+            $productCommented = Product::find($id);
+
+            $comment = new Comment();
+
+            $comment->comment=$commentInserted;
+            $comment->product_id=$productCommented['id'];
+            $comment->save();
+
+            return "Comment saved. <a href='/showproducts'>Go to products</a>";
+        
+        } else {
+        
+            return "Please log in or register before inserting your fucking comment. <a href='/login'>Neh, awand</a>";
+        
+        }
+
+        
+
     }
 
 }

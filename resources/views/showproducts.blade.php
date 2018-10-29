@@ -33,16 +33,46 @@
         <li class="list-group-item"><a href="mailto: {{ $product->user->email }}">Contatta il venditore</a></li>
     		<li class="list-group-item">Categoria: {{ $product->category }}</li>
     		<li class="list-group-item">Prezzo: {{ $product->price }}</li>
-        <p class="card-text text-center">
-          <small class="text-muted">
+        <li class="list-group-item">
           Last updated @php
                        $now=date("Y-m-d H:i:s");
                        $updating = $product->updated_at;
                        $b=strtotime($updating); 
                        echo App\Http\Controllers\PublicController::updatedTime($now,$updating) . " hours ago";
+                       echo '</li>';
                        @endphp
-          </small>
-        </p>
+        
+          @php
+
+          //https://stackoverflow.com/questions/26996218/call-to-undefined-method-illuminate-database-eloquent-collectionwherehas-in
+          $allComments = App\Comment::where('product_id', $product->id);
+
+          $commentsProduct = $allComments->get();
+
+          echo '<li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: lightgray;">Comments:';
+          echo '<span class="badge badge-primary badge-pill">';
+          echo $commentsProduct->count();
+          echo '</span></li>';
+
+          foreach ($commentsProduct as $com) {
+
+            echo "<li class='list-group-item'>";
+            echo $com['comment'];
+            echo "</li>";
+
+          }
+
+          @endphp
+
+        <form method="POST" action="/insertcomment/{{$product->id}}">
+          @csrf
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Button</button>
+            </div>
+            <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" name="comment">
+          </div>
+        </form>
   		</ul>
 	</div> 
 </div>   
