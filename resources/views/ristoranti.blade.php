@@ -18,7 +18,7 @@
   			<p>Contattaci, ti risponderemo subito!</p>
   			
 
-            <form method="POST" action="/dati">
+            <form method="POST" action="/contactMail">
             @csrf
               <div class="form-group row">
                 <div class="col-sm-10 col-lg-6 offset-lg-3">

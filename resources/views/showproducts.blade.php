@@ -2,7 +2,7 @@
 
 @section('content')
 
- @if (Session::has('message')) 
+@if (Session::has('message')) 
 
   <div id="success-msg" class="alert alert-success" role="alert">
     <strong>Well done!</strong> {{ Session::get("message") }}
@@ -10,8 +10,26 @@
 
 @endif
 
+
+@if (Session::has('mailSent')) 
+
+  <div id="success-msg" class="alert alert-success" role="alert">
+    <strong>Well done!</strong> {{ Session::get("mailSent") }}
+  </div>
+
+@endif
+
+
+@if (Session::has('productInserted')) 
+
+  <div id="success-msg" class="alert alert-success" role="alert">
+    <strong>Well done!</strong> {{ Session::get("productInserted") }}
+  </div>
+
+@endif
+
 <br>
-<h1 class="text-center">OUR PRODUCTS</h1>
+<h1 class="text-center">I NOSTRI PRODOTTI</h1>
 <hr class="my-4" style="border-width: 3px; width: 40%;" >
 <br>
 
@@ -22,7 +40,7 @@
 <div class="col-12 col-lg-3 col-md-4 col-sm-12 col-xs-12" style="margin-top:20px; margin-bottom: 20px;">
 
 	<div class="card">
-  		<div class="card-header text-center">
+  		<div class="card-header text-center bg-info">
     		{{ $product->name }}
   		</div>
       <img class="card-img-top" src="{{$product->img}}" alt="Card image cap">
@@ -33,45 +51,55 @@
         <li class="list-group-item"><a href="mailto: {{ $product->user->email }}">Contatta il venditore</a></li>
     		<li class="list-group-item">Categoria: {{ $product->category }}</li>
     		<li class="list-group-item">Prezzo: {{ $product->price }}</li>
-        <li class="list-group-item">
-          Last updated @php
-                       $now=date("Y-m-d H:i:s");
-                       $updating = $product->updated_at;
-                       $b=strtotime($updating); 
-                       echo App\Http\Controllers\PublicController::updatedTime($now,$updating) . " hours ago";
-                       echo '</li>';
-                       @endphp
-        
-          @php
+        <li class="list-group-item"><small class="text-muted">Ultimo aggiornamento: {{ $product->updated_at }}</small></li>
+         <!-- $now=date("Y-m-d H:i:s");
+         $updating = $product->updated_at;
+         $b=strtotime($updating); 
+         echo App\Http\Controllers\PublicController::updatedTime($now,$updating) . " hours ago"; -->
 
-          //https://stackoverflow.com/questions/26996218/call-to-undefined-method-illuminate-database-eloquent-collectionwherehas-in
-          $allComments = App\Comment::where('product_id', $product->id);
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: lightgray;">Commenti:
+            <span class="badge badge-primary badge-pill">{{ App\Comment::where('product_id', $product->id)->get()->count() }}</span>
+          </li>
 
-          $commentsProduct = $allComments->get();
+          @foreach (App\Comment::where('product_id', $product->id)->get() as $comment) 
+            
+            <li class='list-group-item d-flex justify-content-between align-items-center'> {{ $comment->user->name }} says: {{ $comment['comment'] }}
+            
+            @if (Auth::check())
 
-          echo '<li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: lightgray;">Comments:';
-          echo '<span class="badge badge-primary badge-pill">';
-          echo $commentsProduct->count();
-          echo '</span></li>';
+              @if ($comment['user_id'] == Auth::user()->id) 
 
-          foreach ($commentsProduct as $com) {
+                <form method='POST' action=''>
+                @csrf
+                @method('PUT')
+                  <button type='submit' class='btn btn-primary btn-sm'>M</button>
+                </form>
+                
+                <form method='POST' action='/deletecomment/{{ $comment->id }}'>
+                @csrf
+                @method('DELETE')
+                  <button type='submit' class='btn btn-danger btn-sm' onclick="return confirm('Are you sure?')">E</button>
+                </form>
+              
+            </li>
 
-            echo "<li class='list-group-item'>";
-            echo $com['comment'];
-            echo "</li>";
+              @endif
 
-          }
+            @endif
 
-          @endphp
+            </li>
 
-        <form method="POST" action="/insertcomment/{{$product->id}}">
+          @endforeach
+
+        <form method="POST" action="/insertcomment/{{$product->id}}" style="margin-top:15px;">
           @csrf
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Button</button>
+              <button class="btn btn-outline-secondary" type="submit" id="button-addon1"> + </button>
             </div>
-            <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" name="comment">
+            <input type="text" class="form-control" placeholder="..." aria-label="Example text with button addon" aria-describedby="button-addon1" name="comment">
           </div>
+
         </form>
   		</ul>
 	</div> 

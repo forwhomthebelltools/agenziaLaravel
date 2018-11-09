@@ -27,11 +27,12 @@
                                 <p class="card-text">{{$userProduct->description}}</p>
                                 <p class="card-text">{{$userProduct->price}}</p>
                                 <div class="row">
-                                    <a href="/show/{{$userProduct->id}}" class="btn btn-primary col-lg-4 col-xs-12">Edit product</a>
-                                    <form method="post" class="col-lg-4 col-xs-12" action="/delete/{{$userProduct->id}}">
+                                    
+                                    <a href="/modifyproduct/{{$userProduct->id}}" class="btn btn-primary col-lg-4 col-xs-12">Edit product</a>
+
+                                    <form method="post" class="col-lg-4 col-xs-12" action="/deleteproduct/{{$userProduct->id}}">
                                     @csrf
                                     @method('DELETE')
-                                        
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete product</button>
                                         
                                     </form>

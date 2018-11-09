@@ -4,40 +4,41 @@
 @section('content')
 
 
-@foreach ($product as $pro)
+@foreach ($productCollection as $product)
 
-<!-- $product è una collection, quindi mi serve il foreach -->
+<!-- $product is a collection, I need for a foreach loop -->
 <div class="row">
 	<div class="col-sm-10 col-lg-6 offset-lg-3">
-		<form method="POST" action="/update/{{$pro->id}}">
+		<form method="POST" action="/editproduct/{{$product->id}}">
 		@csrf
+		@method('PUT')
 		   <div class="form-group row">
-		    <label for="inputName" class="col-sm-2 col-form-label">Name of product</label>
+		    <label for="inputName" class="col-sm-2 col-form-label">Nome del prodotto</label>
 		    <div class="col-sm-10">
-		      <input type="text" name="name" class="form-control" id="inputName" value="{{$pro->name}}" placeholder="Name">
+		      <input type="text" name="name" class="form-control" id="inputName" value="{{$product->name}}" placeholder="Name">
 		    </div>
 		  </div>
 		  <div class="form-group row">
-		    <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>
+		    <label for="inputPrice" class="col-sm-2 col-form-label">Prezzo</label>
 		    <div class="col-sm-10">
-		      <input type="text" name="price" class="form-control" id="inputPrice" value="{{$pro->price}}" placeholder="Price">
+		      <input type="text" name="price" class="form-control" id="inputPrice" value="{{$product->price}}" placeholder="Price">
 		    </div>
 		  </div>
 		   <div class="form-group">
-		  	<label for="comment">Description (max 255 char)</label>
-		  	<textarea class="form-control" rows="5" name="description" id="desc">{{$pro->description}}</textarea>
+		  	<label for="comment">Descrizione (max 255 caratteri)</label>
+		  	<textarea class="form-control" rows="5" name="description" id="desc">{{$product->description}}</textarea>
 		  </div>
 			<div class="form-group col-md-4">
 	      		<label for="inputState">Categoria</label>
 	      		<select id="inputState" name="category" class="form-control">
 	        		@foreach($categories as $key => $value)
-            			<option value="<?php echo $key; ?>" <?php if($key == $pro->category) echo 'selected'; ?>>{{$value}}</option>
+            			<option value="<?php echo $key; ?>" <?php if($key == $product->category) echo 'selected'; ?>>{{$value}}</option>
         			@endforeach
 	      		</select>
     	  </div>	  
 		  <div class="form-group row">
 		    <div class="col-sm-10 text-center">
-		      <button type="submit" class="btn btn-primary">Update product</button>
+		      <button type="submit" class="btn btn-primary">Aggiorna prodotto</button>
 		    </div>
 		  </div>
 

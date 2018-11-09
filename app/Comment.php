@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Product;
 
+use App\User;
+
 class Comment extends Model
 {
 	//per convenzione trova la tabella come plurale con -s
@@ -15,6 +17,13 @@ class Comment extends Model
     public function product()
     {
         return $this->belongsTo('App\Product');
+        //this=questo commento, che appartiene al prodotto
+        //poichè ho creato la foreign key, capisce come collegare le due tabelle
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
         //this=questo commento, che appartiene al prodotto
         //poichè ho creato la foreign key, capisce come collegare le due tabelle
     }

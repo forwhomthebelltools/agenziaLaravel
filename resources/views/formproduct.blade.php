@@ -7,7 +7,7 @@
 <br>
 <div class="row">
 	<div class="col-sm-10 col-lg-6 offset-lg-3">
-		<form method="POST" action="store" enctype="multipart/form-data">
+		<form method="POST" action="storeproduct" enctype="multipart/form-data">
 		@csrf
 		   <div class="form-group row">
 		    <label for="inputEmail3" class="col-sm-2 col-form-label">Name of product</label>
@@ -32,7 +32,7 @@
 
            @endif
 		   <div class="form-group">
-		  	<label for="comment">Describe your product (max 255 char)</label>
+		  	<label for="comment">Descrivi il tuo prodotto (max 255 caratteri)</label>
 		  	<textarea class="form-control" rows="5" name="description" id="desc">{{ old('description')}}</textarea>
 		  </div>
 		  @if ($errors->has('description'))
@@ -54,7 +54,6 @@
         		<option value="abbigliamento" selected>Abbigliamento</option>
         		<option value="elettrodomestici">Elettrodomestici</option>
         		<option value="giocattoli">Giocattoli</option>
-        		<option value="armi">Armi</option>
       		</select>
     	  </div>
     	  <br>	  

@@ -12,9 +12,15 @@ use Session;
 
 use File;
 
+use App\Mail\ContactReceive;
+
+use Illuminate\Support\Facades\Mail;
+
 //https://stackoverflow.com/questions/28573860/laravel-requestall-should-not-be-called-statically
 
 use App\Product;
+
+use App\Comment;
 
 class PublicController extends Controller
 
@@ -65,7 +71,7 @@ class PublicController extends Controller
 	}
 
 
-	function dati (Request $request) {
+	function contactMail (Request $request) {
 
 		//$input = $request->all();
 
@@ -83,13 +89,22 @@ class PublicController extends Controller
 
 		]);
 
-		$name = $request->input('name');
+		$dati = [
+			'name' => $request->input('name'),
+			'email' => $request->input('email'),
+			'message' => $request->input('message'),
+			];
 
-		return redirect()->route('thankyou', ['name'=>$name]);
+		Mail::to('alessandro.schiri@alice.it')->send(new ContactReceive($dati));
 
+		Session::flash('mailSent', "Mail sent :)");
+
+
+		//return redirect()->route('thankyou', ['name'=>$name]);
+		return redirect('showproducts');
 	}
 
-	public static function updatedTime($now,$updating) {
+	/*public static function updatedTime($now,$updating) {
         
         //get Unix Epoch of now    
         $a=strtotime($now);
@@ -120,21 +135,15 @@ class PublicController extends Controller
         } 
     
     }
+    */
 
-	public function showProducts() {
-		$products = Product::all();
-    	return view('showproducts')->with('products', $products);
- 
+
+    public static function showNumberOfComments($id) {
+    	$comments = App\Comment::where('product_id', $id)->get()->count();
+    	return view ('showproducts')->with('comments', $comments);
     }
 
-    public function deleteProduct($id){
-    	$deletedProduct = Product::find($id)->first();
-    	$urlDeletedProduct = $deletedProduct->img;
-    	$deletedProduct->delete();
-    	unlink(public_path($urlDeletedProduct));
-    	//File::delete("storage/userfiles/aa.jpeg"); //no slash iniziale!!!
-    	return redirect ('showproducts');
-    }
+    
 
 
 }

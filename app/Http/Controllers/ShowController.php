@@ -8,10 +8,10 @@ use View;
 
 use App\Product;
 
-use Session;
+use Illuminate\Support\Facades\Auth;
+
 
 //https://stackoverflow.com/questions/28573860/laravel-requestall-should-not-be-called-statically
-
 
 
 class ShowController extends Controller
@@ -23,26 +23,36 @@ class ShowController extends Controller
     }
 
     public function showProduct ($id) {
-    	$categories = ["abbigliamento" => "Abbigliamento", "elettrodomestici" => "Elettrodomestici", 
-				"giocattoli" => "Giocattoli", "armi" => "Armi"];
-    	$product = Product::where('id', $id)->get();
-		return view ('show')->with('product',$product)->with('categories',$categories);    
+
+    	if (Auth::check()) {
+
+    		$currentUser = Auth::user();
+
+    		$productRequested = Product::find($id);
+
+    		if ($productRequested->user_id == $currentUser->id) {
+
+	    		$categories = ["abbigliamento" => "Abbigliamento", "elettrodomestici" => "Elettrodomestici", 
+					"giocattoli" => "Giocattoli"];
+
+	    		$productCollection = Product::where('id', $id)->with('user')->get();
+
+				return view ('show')->with('productCollection',$productCollection)->with('categories',$categories); 
+
+			} else {
+
+				return "seee u cazz ada avaje";
+
+			}
+
+		}  else {
+
+			return "loggati prima trmoooun";
+
+		}
 	}
 
-	public function editProduct(Request $req, $id) {
-		$product = Product::find($id);
-		$product->name = $req->input('name');
-		$product->price = $req->input('price');
-		$product->description = $req->input('description');
-		$product->category = $req->input('category');
-		$product->save();
-		$products = Product::all();
-		Session::flash('message', "Product modified");
-    	//return redirect()->back();
-    	return redirect('showproducts')->with('products', $products);
-    	//session flash persists for 2 requests
-    	//fixed thanks to here -> https://stackoverflow.com/questions/14517809/laravels-flash-session-stores-data-twice
-    	//and here -> https://stackoverflow.com/questions/24579580/laravel-session-flash-persists-for-2-requests
-	}
+
+	
 
 }

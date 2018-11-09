@@ -19,7 +19,7 @@
       			   <div class="input-group-addon"></div>
       			   <input type="text" class="form-control" id="yourEmail" placeholder="Your Email">
     			</div>
-    			<button type="button" id="button-email" class="btn btn-primary my-2 my-sm-0">Sign Up</button>
+    			<button type="button" id="button-email" class="btn btn-primary my-2 my-sm-0">Contattaci</button>
   			</form>
 		</header>
 

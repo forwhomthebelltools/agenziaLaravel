@@ -15,21 +15,25 @@ use Illuminate\Http\Request;
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('/', 'PublicController@getRistoranti');
-Route::get('/formRistorante', 'PublicController@formRistorante');
 Route::get('/ristorante/{nome}', 'PublicController@getRistorante');
 Route::get('/thankyou', 'PublicController@getThankYouPage')->name('thankyou');
-Route::post('/dati', 'PublicController@dati');
-Route::get('/showproducts', 'PublicController@showProducts');
-Route::delete('/delete/{id}', 'PublicController@deleteProduct');
+Route::post('/dati', 'PublicController@contactMail');
 
 
-Route::get('/formproduct', 'InsertController@index');
-Route::post('/store', 'InsertController@store');
-Route::post('/insertcomment/{id}', 'InsertController@insertComment');
+Route::get('/showproducts', 'ProductController@showProducts');
+Route::get('/formproduct', 'ProductController@insertProductForm');
+Route::post('/storeproduct', 'ProductController@storeProduct');
+Route::delete('/deleteproduct/{id}', 'ProductController@deleteProduct');
+Route::put('/editproduct/{id}', 'ProductController@editProduct');
 
 
-Route::get('/show/{id}', 'ShowController@showProduct');
-Route::post('/update/{id}', 'ShowController@editProduct');
+Route::get('/modifyproduct/{id}', 'ShowController@showProduct');
+
+
+Route::delete('/deletecomment/{id}', 'CommentController@deleteComment');
+Route::post('/insertcomment/{id}', 'CommentController@insertComment');
